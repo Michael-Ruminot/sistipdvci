@@ -4,16 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SedesModel extends Model
+class TipoactivosModel extends Model
 {
-    protected $table            = 'sedes';
+    protected $table            = 'tipoactivos';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['sedes','direccion'];
-
+    protected $allowedFields    = ['tipo'];
 
     // Dates
     protected $useTimestamps = false;
