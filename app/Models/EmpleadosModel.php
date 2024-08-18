@@ -20,4 +20,14 @@ class EmpleadosModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+    //Funcion para mostrar datos de distintas tablas (INNER JOIN)
+    public function empleadosJoin(){
+        return $this->select('empleados.*, departamentos.nombre AS departamento, 
+                                            roles.rol AS rol,
+                                            sedes.sede AS sede')
+        ->join('departamentos', 'empleados.id_departamento = departamentos.id')
+        ->join('roles', 'empleados.id_rol = roles.id')
+        ->join('sedes', 'empleados.id_sede = sedes.id')
+        ->findAll();
+    }
 }

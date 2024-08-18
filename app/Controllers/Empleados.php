@@ -14,7 +14,7 @@ class Empleados extends BaseController
 {
 
     protected $helpers = ['form'];
-    
+
     /**
      * Return an array of resource objects, themselves in array format.
      *
@@ -22,7 +22,10 @@ class Empleados extends BaseController
      */
     public function index()
     {
-        return view('empleados/index');
+        $empleadosModel = new EmpleadosModel();
+        $data['empleados'] = $empleadosModel->empleadosJoin();
+
+        return view('empleados/index', $data);
     }
 
     /**
@@ -81,7 +84,7 @@ class Empleados extends BaseController
             // Retorna al formulario, le pasa los elementos que se ingresaron pero tambien pasando el elemento error el cual contiene todos los errores.
         }
 
-        $post = $this->request->getPost(['nombre','apellido','username','password','correo','cargo','fecha_nacimiento','departamento','rol','sede','departamento']);
+        $post = $this->request->getPost(['nombre', 'apellido', 'username', 'password', 'correo', 'cargo', 'fecha_nacimiento', 'departamento', 'rol', 'sede', 'departamento']);
 
         $empleadosModel = new EmpleadosModel();
         $empleadosModel->insert([
@@ -109,7 +112,23 @@ class Empleados extends BaseController
      */
     public function edit($id = null)
     {
-        //
+        if ($id == null) {
+            return redirect()->route('empleados');
+        }
+
+        $empleadosModel = new EmpleadosModel();
+        $data['empleado'] = $empleadosModel->find($id);
+
+        $departamentosModel = new DepartamentosModel();
+        $data['departamentos'] = $departamentosModel->findAll();
+
+        $rolesModel = new RolesModel();
+        $data['roles'] = $rolesModel->findAll();
+
+        $sedesModel = new SedesModel();
+        $data['sedes'] = $sedesModel->findAll();
+
+        return view('empleados/editar', $data);
     }
 
     /**
@@ -121,7 +140,47 @@ class Empleados extends BaseController
      */
     public function update($id = null)
     {
-        //
+        //Validando que id recibido sea por metodo put
+        if (!$this->request->is('put') || $id == null) {
+            return redirect()->route('empleados');
+        }
+
+        $reglas = [
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'username' => "required|is_unique[empleados.username,id,{$id}]", // Con esta validación nos evitamos que el programa piense que el campo existe. 
+            //Ignorando este id que le estamos pasando
+            'password' => 'required|min_length[5]|max_length[10]',
+            'correo' => "valid_email|is_unique[empleados.correo,id,{$id}]",
+            'cargo' => 'required',
+            'fecha_nacimiento' => 'required',
+            'rol' => 'required|is_not_unique[roles.id]',
+            'sede' => 'required|is_not_unique[sedes.id]',
+            'departamento' => 'required|is_not_unique[departamentos.id]',
+        ];
+
+        if (!$this->validate($reglas)) {
+            return redirect()->back()->withInput()->with('error', $this->validator->listErrors());
+            // Retorna al formulario, le pasa los elementos que se ingresaron pero tambien pasando el elemento error el cual contiene todos los errores.
+        }
+
+        $post = $this->request->getPost(['nombre', 'apellido', 'username', 'password', 'correo', 'cargo', 'fecha_nacimiento', 'departamento', 'rol', 'sede', 'departamento']);
+
+        $empleadosModel = new EmpleadosModel();
+        $empleadosModel->update($id, [
+            'nombre' => trim($post['nombre']),
+            'apellido' => trim($post['apellido']),
+            'username' => trim($post['username']),
+            'password' => $post['password'],
+            'correo' => trim($post['correo']),
+            'cargo' => trim($post['cargo']),
+            'fecha_nacimiento' => $post['fecha_nacimiento'],
+            'id_rol' => $post['rol'],
+            'id_sede' => $post['sede'],
+            'id_departamento' => $post['departamento'],
+        ]);
+
+        return redirect()->to('empleados');
     }
 
     /**
@@ -133,6 +192,14 @@ class Empleados extends BaseController
      */
     public function delete($id = null)
     {
-        //
+        //Validando que id recibido sea por metodo delete
+        if (!$this->request->is('delete') || $id == null) {
+            return redirect()->route('empleados');
+        }
+
+        $empleadosModel = new EmpleadosModel();
+        $empleadosModel->delete($id);
+
+        return redirect()->to('empleados');
     }
 }
