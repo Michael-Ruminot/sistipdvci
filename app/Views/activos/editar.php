@@ -2,7 +2,7 @@
 
 <?= $this->section('contenido'); ?>
 
-<h3 class="my-3">Nuevo activo</h3>
+<h3 class="my-3">Modificar activo</h3>
 
 <?php if (session()->getFlashdata('error') !== null) { ?>
     <div class="alert alert-danger">
@@ -10,31 +10,34 @@
     </div>
 <?php } ?>
 
-<form action="<?= base_url('activos'); ?>" class="row g-3" method="post" autocomplete="off">
+<form action="<?= base_url('activos/' . $activo['id']); ?>" class="row g-3" method="POST" autocomplete="off">
+
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="activo_id" value="<?= $activo['id']; ?>">
 
     <div class="col-md-4">
         <label for="serie" class="form-label">Serie</label>
-        <input type="text" class="form-control" id="serie" name="serie" value="<?= set_value('serie') ?>" required autofocus>
+        <input type="text" class="form-control" id="serie" name="serie" value="<?= $activo['serie'] ?>" required autofocus>
     </div>
 
     <div class="col-md-4">
         <label for="modelo" class="form-label">Modelo</label>
-        <input type="text" class="form-control" id="modelo" name="modelo" value="<?= set_value('modelo') ?>" required>
+        <input type="text" class="form-control" id="modelo" name="modelo" value="<?= $activo['modelo'] ?>" required>
     </div>
 
     <div class="col-md-4">
         <label for="fabricante" class="form-label">Fabricante</label>
-        <input type="text" class="form-control" id="fabricante" name="fabricante" value="<?= set_value('fabricante') ?>" required>
+        <input type="text" class="form-control" id="fabricante" name="fabricante" value="<?= $activo['fabricante'] ?>" required>
     </div>
 
     <div class="col-md-4">
         <label for="descripcion" class="form-label">Descripcion</label>
-        <input type="text" class="form-control" id="descripcion" name="descripcion" value="<?= set_value('descripcion') ?>" required>
+        <input type="text" class="form-control" id="descripcion" name="descripcion" value="<?= $activo['descripcion'] ?>" required>
     </div>
 
     <div class="col-md-4">
         <label for="mantencion" class="form-label">Última mantención</label>
-        <input type="date" class="form-control" id="mantencion" name="mantencion" value="<?= set_value('mantencion') ?>">
+        <input type="date" class="form-control" id="mantencion" name="mantencion" value="<?= $activo['mantencion'] ?>">
     </div>
 
     <div class="col-md-4">
@@ -42,7 +45,7 @@
         <select class="form-select" id="tipo" name="tipo" required>
             <option value="">Seleccionar</option>
             <?php foreach ($tipoactivos as $tipoactivo): ?>
-                <option value="<?= $tipoactivo['id']; ?>"><?= $tipoactivo['tipo']; ?></option>
+                <option value="<?= $tipoactivo['id']; ?>" <?php echo ($tipoactivo['id'] == $activo['id_tipo']) ? 'selected' : ''; ?>><?= $tipoactivo['tipo']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -52,7 +55,7 @@
         <select class="form-select" id="sede" name="sede" required>
             <option value="">Seleccionar</option>
             <?php foreach ($sedes as $sede): ?>
-                <option value="<?= $sede['id']; ?>"><?= $sede['sede']; ?></option>
+                <option value="<?= $sede['id']; ?>" <?php echo ($sede['id'] == $activo['id_sede']) ? 'selected' : ''; ?> ><?= $sede['sede']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -63,7 +66,7 @@
         <select class="form-select" id="empleado" name="empleado" required>
             <option value="">Seleccionar</option>
             <?php foreach ($empleados as $empleado): ?>
-                <option value="<?= $empleado['id']; ?>"><?= $empleado['nombre']; ?> <?= $empleado['apellido']; ?></option>
+                <option value="<?= $empleado['id']; ?>" <?php echo ($empleado['id'] == $activo['id_empleado']) ? 'selected' : ''; ?> ><?= $empleado['nombre']; ?> <?= $empleado['apellido']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>

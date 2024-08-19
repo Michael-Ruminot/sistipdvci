@@ -20,4 +20,17 @@ class ActivosModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+
+    //Funcion para mostrar datos de distintas tablas (INNER JOIN)
+    public function activosJoin(){
+        return $this->select('activos.*, tipoactivos.tipo AS tipo, 
+                                            sedes.sede AS sede,
+                                            empleados.nombre AS empleado,
+                                            empleados.apellido AS empleadoApellido')
+        ->join('tipoactivos', 'activos.id_tipo = tipoactivos.id')
+        ->join('sedes', 'activos.id_sede = sedes.id')
+        ->join('empleados', 'activos.id_empleado = empleados.id')
+        ->findAll();
+    }
+
 }

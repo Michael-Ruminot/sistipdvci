@@ -6,9 +6,13 @@ use App\Controllers\BaseController;
 use App\Models\EmpleadosModel;
 use App\Models\SedesModel;
 use App\Models\TipoactivosModel;
+use App\Models\ActivosModel;
 
 class Activos extends BaseController
 {
+    
+    protected $helpers = ['form'];
+
     /**
      * Return an array of resource objects, themselves in array format.
      *
@@ -16,7 +20,11 @@ class Activos extends BaseController
      */
     public function index()
     {
-        return view('activos/index');
+
+        $activosModel = new ActivosModel();
+        $data['activos'] = $activosModel->activosJoin();
+        
+        return view('activos/index', $data);
     }
 
     /**
@@ -58,7 +66,36 @@ class Activos extends BaseController
      */
     public function create()
     {
-        //
+        $reglas = [
+            'serie' => 'is_unique[activos.serie]',
+            'modelo' => 'required',
+            'fabricante' => 'required',
+            'descripcion' => 'required',
+            'tipo' => 'required',
+            'sede' => 'required',
+            'empleado' => 'required',
+        ];
+
+        if (!$this->validate($reglas)) {
+            return redirect()->back()->withInput()->with('error', $this->validator->listErrors());
+            // Retorna al formulario, le pasa los elementos que se ingresaron pero tambien pasando el elemento error el cual contiene todos los errores.
+        }
+
+        $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'tipo', 'sede', 'empleado']);
+
+        $activosModel = new ActivosModel();
+        $activosModel->insert([
+            'serie' => trim($post['serie']),
+            'modelo' => trim($post['modelo']),
+            'fabricante' => trim($post['fabricante']),
+            'descripcion' => $post['descripcion'],
+            'mantencion' => trim($post['mantencion']),
+            'id_tipo' => $post['tipo'],
+            'id_sede' => $post['sede'],
+            'id_empleado' => $post['empleado'],
+        ]);
+
+        return redirect()->to('activos');
     }
 
     /**
@@ -70,7 +107,23 @@ class Activos extends BaseController
      */
     public function edit($id = null)
     {
-        //
+        if ($id == null) {
+            return redirect()->route('activos');
+        }
+        
+        $activoModel = new ActivosModel();
+        $data['activo'] = $activoModel->find($id);
+
+        $activosModel = new TipoactivosModel();
+        $data['tipoactivos'] = $activosModel->findAll();
+
+        $empleadosModel = new EmpleadosModel();
+        $data['empleados'] = $empleadosModel->findAll();
+
+        $sedesModel = new SedesModel();
+        $data['sedes'] = $sedesModel->findAll();
+
+        return view('activos/editar', $data);
     }
 
     /**
