@@ -10,7 +10,7 @@ use App\Models\ActivosModel;
 
 class Activos extends BaseController
 {
-    
+
     protected $helpers = ['form'];
 
     /**
@@ -18,12 +18,20 @@ class Activos extends BaseController
      *
      * @return ResponseInterface
      */
+
+    private $encrypter;
+
+    public function __construct()
+    {
+        $this->encrypter = \Config\Services::encrypter();
+    }
+
     public function index()
     {
 
         $activosModel = new ActivosModel();
         $data['activos'] = $activosModel->activosJoin();
-        
+
         return view('activos/index', $data);
     }
 
@@ -67,13 +75,13 @@ class Activos extends BaseController
     public function create()
     {
         $reglas = [
-            'serie' => 'is_unique[activos.serie]',
-            'modelo' => 'required',
-            'fabricante' => 'required',
-            'descripcion' => 'required',
+            'serie' => 'required|is_unique[activos.serie]',
+            'modelo' => 'required|max_length[50]',
+            'fabricante' => 'required|max_length[50]',
+            'descripcion' => 'required|max_length[250]',
             'tipo' => 'required',
             'sede' => 'required',
-            'empleado' => 'required',
+            'empleado' => 'required'
         ];
 
         if (!$this->validate($reglas)) {
@@ -110,7 +118,7 @@ class Activos extends BaseController
         if ($id == null) {
             return redirect()->route('activos');
         }
-        
+
         $activoModel = new ActivosModel();
         $data['activo'] = $activoModel->find($id);
 
@@ -135,7 +143,41 @@ class Activos extends BaseController
      */
     public function update($id = null)
     {
-        //
+        //Validando que id recibido sea por metodo put
+        if (!$this->request->is('put') || $id == null) {
+            return redirect()->route('activos');
+        }
+
+        $reglas = [
+            'serie' => "required|is_unique[activos.serie,id,{$id}]",
+            'modelo' => 'required|max_length[50]',
+            'fabricante' => 'required|max_length[50]',
+            'descripcion' => 'required|max_length[250]',
+            'tipo' => 'required',
+            'sede' => 'required',
+            'empleado' => 'required'
+        ];
+
+        if (!$this->validate($reglas)) {
+            return redirect()->back()->withInput()->with('error', $this->validator->listErrors());
+            // Retorna al formulario, le pasa los elementos que se ingresaron pero tambien pasando el elemento error el cual contiene todos los errores.
+        }
+
+        $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'tipo', 'sede', 'empleado']);
+
+        $activosModel = new ActivosModel();
+        $activosModel->update($id, [
+            'serie' => trim($post['serie']),
+            'modelo' => trim($post['modelo']),
+            'fabricante' => trim($post['fabricante']),
+            'descripcion' => trim($post['descripcion']),
+            'mantencion' => trim($post['mantencion']),
+            'id_tipo' => trim($post['tipo']),
+            'id_sede' => trim($post['sede']),
+            'id_empleado' => trim($post['empleado']),
+        ]);
+
+        return redirect()->to('activos');
     }
 
     /**
@@ -147,6 +189,14 @@ class Activos extends BaseController
      */
     public function delete($id = null)
     {
-        //
+        //Validando que id recibido sea por metodo delete
+        if (!$this->request->is('delete') || $id == null) {
+            return redirect()->route('activos');
+        }
+
+        $activosModel = new ActivosModel();
+        $activosModel->delete($id);
+
+        return redirect()->to('activos');
     }
 }

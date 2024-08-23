@@ -20,6 +20,14 @@ class Empleados extends BaseController
      *
      * @return ResponseInterface
      */
+
+    private $encrypter;
+
+    public function __construct()
+    {
+        $this->encrypter = \Config\Services::encrypter();
+    }
+    
     public function index()
     {
         $empleadosModel = new EmpleadosModel();
@@ -67,12 +75,13 @@ class Empleados extends BaseController
     public function create()
     {
         $reglas = [
-            'nombre' => 'required',
-            'apellido' => 'required',
+            'nombre' => 'required|max_length[50]',
+            'apellido' => 'required|max_length[50]',
             'username' => 'required|is_unique[empleados.username]',
-            'password' => 'required|min_length[5]|max_length[10]',
-            'correo' => 'valid_email|is_unique[empleados.correo]',
-            'cargo' => 'required',
+            'password' => 'required|max_length[250]|min_length[5]',
+            // 'repassword' => 'matches[password]',
+            'correo' => 'required|max_length[250]|valid_email|is_unique[empleados.correo]',
+            'cargo' => 'required|max_length[100]',
             'fecha_nacimiento' => 'required',
             'rol' => 'required|is_not_unique[roles.id]',
             'sede' => 'required|is_not_unique[sedes.id]',
@@ -91,7 +100,7 @@ class Empleados extends BaseController
             'nombre' => trim($post['nombre']),
             'apellido' => trim($post['apellido']),
             'username' => trim($post['username']),
-            'password' => $post['password'],
+            'password' => password_hash($post['password'], PASSWORD_DEFAULT),
             'correo' => trim($post['correo']),
             'cargo' => trim($post['cargo']),
             'fecha_nacimiento' => $post['fecha_nacimiento'],
@@ -146,17 +155,18 @@ class Empleados extends BaseController
         }
 
         $reglas = [
-            'nombre' => 'required',
-            'apellido' => 'required',
+            'nombre' => 'required|max_length[50]',
+            'apellido' => 'required|max_length[50]',
             'username' => "required|is_unique[empleados.username,id,{$id}]", // Con esta validación nos evitamos que el programa piense que el campo existe. 
             //Ignorando este id que le estamos pasando
-            'password' => 'required|min_length[5]|max_length[10]',
+            'password' => 'required|max_length[250]|min_length[5]',
+            // 'repassword' => 'matches[password]',
             'correo' => "valid_email|is_unique[empleados.correo,id,{$id}]",
-            'cargo' => 'required',
+            'cargo' => 'required|max_length[100]',
             'fecha_nacimiento' => 'required',
             'rol' => 'required|is_not_unique[roles.id]',
             'sede' => 'required|is_not_unique[sedes.id]',
-            'departamento' => 'required|is_not_unique[departamentos.id]',
+            'departamento' => 'required|is_not_unique[departamentos.id]'
         ];
 
         if (!$this->validate($reglas)) {
@@ -171,7 +181,7 @@ class Empleados extends BaseController
             'nombre' => trim($post['nombre']),
             'apellido' => trim($post['apellido']),
             'username' => trim($post['username']),
-            'password' => $post['password'],
+            'password' => password_hash($post['password'], PASSWORD_DEFAULT),
             'correo' => trim($post['correo']),
             'cargo' => trim($post['cargo']),
             'fecha_nacimiento' => $post['fecha_nacimiento'],

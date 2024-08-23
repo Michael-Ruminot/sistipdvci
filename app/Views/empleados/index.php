@@ -6,13 +6,13 @@
 
 <a href="<?= base_url('empleados/new'); ?>" class="btn btn-success">Agregar</a>
 
-<table class="table table-hover table-bordered my-3" aria-describedby="titulo">
+<table class="table table-responsive table-hover table-bordered my-3" aria-describedby="titulo">
     <thead class="table-dark">
         <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Usuario</th>
-            <th scope="col">Password</th>
+            <!-- <th scope="col">Password</th> -->
             <th scope="col">Correo</th>
             <th scope="col">Cargo</th>
             <th scope="col">Fecha de nacimiento</th>
@@ -31,7 +31,7 @@
                 <td><?= $empleado['nombre']; ?></td>
                 <td><?= $empleado['apellido']; ?></td>
                 <td><?= $empleado['username']; ?></td>
-                <td><?= $empleado['password']; ?></td>
+                
                 <td><?= $empleado['correo']; ?></td>
                 <td><?= $empleado['cargo']; ?></td>
                 <td><?= $empleado['fecha_nacimiento']; ?></td>
@@ -40,7 +40,6 @@
                 <td><?= $empleado['departamento']; ?></td>
                 <td>
                     <a href="<?= base_url('empleados/' . $empleado['id'] . '/edit'); ?>" class="btn btn-warning btn-sm me-2">Editar</a>
-
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminaModal" data-bs-url="<?= base_url('empleados/' . $empleado['id']); ?>">Eliminar</button>
                 </td>
             </tr>
@@ -61,7 +60,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Desea eliminar este registro?</p>
+                    <p>¿Desea eliminar a este usuario?</p>
                 </div>
                 <div class="modal-footer">
                     <form id="form-elimina" action="" method="post">

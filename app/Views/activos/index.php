@@ -37,7 +37,7 @@
                 <td>
                     <a href="<?= base_url('activos/' . $activo['id'] . '/edit'); ?>" class="btn btn-warning btn-sm me-2">Editar</a>
 
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminaModal" data-bs-url="<?= base_url('empleados/' . $activo['id']); ?>">Eliminar</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminaModal" data-bs-url="<?= base_url('activos/' . $activo['id']); ?>">Eliminar</button>
                 </td>
             </tr>
 
@@ -55,7 +55,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Desea eliminar este registro?</p>
+                <p>¿Desea eliminar este activo informatico?</p>
             </div>
             <div class="modal-footer">
                 <form id="form-elimina" action="" method="post">
