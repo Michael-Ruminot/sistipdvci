@@ -86,4 +86,8 @@
 
 
 
+<?= $this->endSection('contenido'); ?>
+
+<?= $this->section('script'); ?>
+
 <?= $this->endSection(); ?>
