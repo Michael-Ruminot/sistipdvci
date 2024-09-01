@@ -8,6 +8,9 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Login extends BaseController
 {
+
+    protected $helpers = ['form'];
+
     public function index()
     {
         return view('login');
@@ -43,10 +46,10 @@ class Login extends BaseController
                 $session->set($sessData);
                 switch($checkEmpleados['id_rol']){
                     case 1:
-                        return redirect()->to('/admin');
+                        return redirect()->to('http://localhost/sistipdvci/public/admin');
                         break;
                     case 2:
-                        return redirect()->to('/user');
+                        return redirect()->to('http://localhost/sistipdvci/public/user');
                         break;
                     default:
                         session()->setFlashdata('error', 'Aun no has iniciado sesión');

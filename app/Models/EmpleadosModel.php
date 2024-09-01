@@ -12,7 +12,7 @@ class EmpleadosModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nombre','apellido','username','password','correo','cargo','fecha_nacimiento','id_rol','id_sede','id_departamento'];
+    protected $allowedFields    = ['nombre', 'apellido', 'username', 'password', 'repassword', 'correo', 'cargo', 'fecha_nacimiento', 'id_rol', 'id_sede', 'id_departamento'];
 
     // Dates
     protected $useTimestamps = true;
@@ -21,13 +21,20 @@ class EmpleadosModel extends Model
     protected $updatedField  = 'updated_at';
 
     //Funcion para mostrar datos de distintas tablas (INNER JOIN)
-    public function empleadosJoin(){
+    public function empleadosJoin()
+    {
         return $this->select('empleados.*, departamentos.nombre AS departamento, 
                                             roles.rol AS rol,
                                             sedes.sede AS sede')
-        ->join('departamentos', 'empleados.id_departamento = departamentos.id')
-        ->join('roles', 'empleados.id_rol = roles.id')
-        ->join('sedes', 'empleados.id_sede = sedes.id')
-        ->findAll();
+            ->join('departamentos', 'empleados.id_departamento = departamentos.id')
+            ->join('roles', 'empleados.id_rol = roles.id')
+            ->join('sedes', 'empleados.id_sede = sedes.id')
+            ->findAll();
+    }
+
+    // Método para actualizar la contraseña de un usuario
+    public function updatePassword($userId, $hashedPassword)
+    {
+        return $this->update($userId, ['password' => $hashedPassword]);
     }
 }

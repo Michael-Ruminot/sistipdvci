@@ -1,16 +1,16 @@
-<?php echo $this->extend('plantilla'); ?>
+<?= $this->extend('layout/plantilla'); ?>
 
 <?= $this->section('contenido'); ?>
 
 <h3 class="my-3">Modificar empleado</h3>
 
-<?php if (session()->getFlashdata('error') !== null) {?>
+<?php if (session()->getFlashdata('error') !== null) { ?>
     <div class="alert alert-danger">
         <?= session()->getFlashdata('error'); ?>
     </div>
 <?php } ?>
 
-<form action="<?= base_url('empleados/' .$empleado['id']); ?>" class="row g-3" method="POST" autocomplete="off">
+<form action="<?= base_url('empleados/' . $empleado['id']); ?>" class="row g-3" method="POST" autocomplete="off">
 
     <input type="hidden" name="_method" value="PUT">
     <input type="hidden" name="empleado_id" value="<?= $empleado['id']; ?>">
@@ -28,11 +28,6 @@
     <div class="col-md-4">
         <label for="username" class="form-label">Usuario</label>
         <input type="text" class="form-control" id="username" name="username" value="<?= $empleado['username'] ?>" required>
-    </div>
-
-    <div class="col-md-4">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" value="<?= $empleado['password'] ?>" required>
     </div>
 
     <div class="col-md-4">
@@ -54,7 +49,7 @@
         <label for="rol" class="form-label">Rol</label>
         <select class="form-select" id="rol" name="rol" required>
             <option value="">Seleccionar</option>
-            <?php foreach($roles as $rol): ?>
+            <?php foreach ($roles as $rol): ?>
                 <option value="<?= $rol['id']; ?>" <?php echo ($rol['id'] == $empleado['id_rol']) ? 'selected' : ''; ?>><?= $rol['rol']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -64,7 +59,7 @@
         <label for="sede" class="form-label">Sede</label>
         <select class="form-select" id="sede" name="sede" required>
             <option value="">Seleccionar</option>
-            <?php foreach($sedes as $sede): ?>
+            <?php foreach ($sedes as $sede): ?>
                 <option value="<?= $sede['id']; ?>" <?php echo ($sede['id'] == $empleado['id_sede']) ? 'selected' : ''; ?>><?= $sede['sede']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -74,7 +69,7 @@
         <label for="departamento" class="form-label">Departamento</label>
         <select class="form-select" id="departamento" name="departamento" required>
             <option value="">Seleccionar</option>
-            <?php foreach($departamentos as $departamento): ?>
+            <?php foreach ($departamentos as $departamento): ?>
                 <option value="<?= $departamento['id']; ?>" <?php echo ($departamento['id'] == $empleado['id_departamento']) ? 'selected' : ''; ?>><?= $departamento['nombre']; ?></option>
             <?php endforeach; ?>
         </select>

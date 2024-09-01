@@ -4,10 +4,12 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\SedesModel;
 
-class Sedes extends BaseController
+class Admin extends ResourceController
 {
+
+    protected $helpers = ['form'];
+
     /**
      * Return an array of resource objects, themselves in array format.
      *
@@ -15,9 +17,7 @@ class Sedes extends BaseController
      */
     public function index()
     {
-        $sedesModel = new SedesModel();
-        $data['sedes'] = $sedesModel->sedesQuery();
-        return view('sedes/index' , $data);
+        return view('administrador/index');
     }
 
     /**

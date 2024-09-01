@@ -92,12 +92,14 @@ class Activos extends BaseController
         $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'tipo', 'sede', 'empleado']);
 
         $activosModel = new ActivosModel();
+
         $activosModel->insert([
             'serie' => trim($post['serie']),
             'modelo' => trim($post['modelo']),
             'fabricante' => trim($post['fabricante']),
             'descripcion' => $post['descripcion'],
             'mantencion' => trim($post['mantencion']),
+            'ruta' => trim($post['ruta']),
             'id_tipo' => $post['tipo'],
             'id_sede' => $post['sede'],
             'id_empleado' => $post['empleado'],

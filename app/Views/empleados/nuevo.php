@@ -1,5 +1,4 @@
-<?php echo $this->extend('plantilla'); ?>
-
+<?php echo $this->extend('layout/plantilla'); ?>
 <?= $this->section('contenido'); ?>
 
 <h3 class="my-3">Nuevo empleado</h3>
@@ -85,9 +84,9 @@
 </form>
 
 
-
 <?= $this->endSection('contenido'); ?>
 
 <?= $this->section('script'); ?>
 
 <?= $this->endSection(); ?>
+

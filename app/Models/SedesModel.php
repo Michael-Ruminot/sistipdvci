@@ -12,10 +12,16 @@ class SedesModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['sedes','direccion'];
+    protected $allowedFields    = ['sede','direccion'];
 
 
     // Dates
     protected $useTimestamps = false;
+
+
+     //Funcion para mostrar datos de distintas tablas (INNER JOIN)
+     public function sedesQuery(){
+        return $this->select('sedes.*')->findAll();
+    }
 
 }

@@ -27,13 +27,13 @@ class Empleados extends BaseController
     {
         $this->encrypter = \Config\Services::encrypter();
     }
-    
+
     public function index()
     {
         $empleadosModel = new EmpleadosModel();
         $data['empleados'] = $empleadosModel->empleadosJoin();
 
-        return view('empleados/index', $data);
+        return view('empleados/index', $data);    //retornamos vista desde la carpeta views
     }
 
     /**
@@ -64,7 +64,9 @@ class Empleados extends BaseController
         $sedesModel = new SedesModel();
         $data['sedes'] = $sedesModel->findAll();
 
+
         return view('empleados/nuevo', $data);
+
     }
 
     /**
@@ -212,4 +214,6 @@ class Empleados extends BaseController
 
         return redirect()->to('empleados');
     }
+
+
 }

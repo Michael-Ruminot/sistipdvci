@@ -14,17 +14,25 @@ $routes->get('/logout', 'Login::logout');
 // Despues de iniciar sesion
 
 // Rutas Admin
-$routes->get('/admin', 'HomeAdmin::index', ['filter' => 'AdminFilter']);
+$routes->resource('admin', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
 // Rutas user
-$routes->get('/user', 'HomeUser::index', ['filter' => 'UserFilter']);
+$routes->resource('user', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
-
-// $routes->get('empleados', 'Empleados::index');
-// $routes->get('empleados/new', 'Empleados::new');
+//Rutas empleados
 $routes->resource('empleados', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
-// $routes->get('activos', 'Activos::index');
-// $routes->get('activos/new', 'Activos::new');
+//Rutas activos
 $routes->resource('activos', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+$routes->get('activos', 'Activos::subir');
+
+//Rutas sedes
+$routes->resource('sedes', ['placeholder' => '(:num)', 'except' => 'show']);
+
+//Rutas activos
+$routes->resource('reset', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+
+
+
+
 

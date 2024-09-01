@@ -1,4 +1,4 @@
-<?php echo $this->extend('plantilla'); ?>
+<?= $this->extend('layout/plantilla'); ?>
 
 <?= $this->section('contenido'); ?>
 
@@ -7,7 +7,6 @@
         echo '<div class="alert alert-danger">'.session()->getFlashdata('error').'</div>';
     }
 ?>
-
 
 <h1>Bienvenido perfil Administradoooooor</h1>
 
@@ -21,6 +20,5 @@
 
 <?= $this->section('script'); ?>
 
-
-
 <?= $this->endSection(); ?>
+

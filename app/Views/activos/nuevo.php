@@ -1,4 +1,4 @@
-<?php echo $this->extend('plantilla'); ?>
+<?php echo $this->extend('layout/plantilla'); ?>
 
 <?= $this->section('contenido'); ?>
 
@@ -10,7 +10,7 @@
     </div>
 <?php } ?>
 
-<form action="<?= base_url('activos'); ?>" class="row g-3" method="post" autocomplete="off">
+<form action="<?= base_url('activos'); ?>" class="row g-3" method="post" autocomplete="off" enctype="multipart/form-data">
 
     <div class="col-md-4">
         <label for="serie" class="form-label">Serie</label>
@@ -58,6 +58,11 @@
     </div>
 
     <div class="col-md-4">
+        <label for="formFile" class="form-label">Selecciona un archivo</label>
+        <input class="form-control" type="file" id="archivo" name="archivo" accept="image/jpeg, application/pdf">
+    </div>
+
+    <div class="col-md-4">
 
         <label for="empleado" class="form-label">Asignado a</label>
         <select class="form-select" id="empleado" name="empleado" required>
@@ -67,7 +72,6 @@
             <?php endforeach; ?>
         </select>
     </div>
-
 
     <div class="col-12">
         <a href="<?= base_url('activos'); ?>" class="btn btn-secondary">Regresar</a>
