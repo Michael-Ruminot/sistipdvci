@@ -3,13 +3,13 @@
 
 <h3 class="my-3">Nuevo empleado</h3>
 
-<?php if (session()->getFlashdata('error') !== null) {?>
+<?php if (session()->getFlashdata('error') !== null) { ?>
     <div class="alert alert-danger">
         <?= session()->getFlashdata('error'); ?>
     </div>
 <?php } ?>
 
-<form action="<?= base_url('empleados'); ?>" class="row g-3" method="post" autocomplete="off">
+<form action="<?= base_url('empleados'); ?>" id="formcreate" class="row g-3" method="post" autocomplete="off">
 
     <div class="col-md-4">
         <label for="nombre" class="form-label">Nombre</label>
@@ -50,7 +50,7 @@
         <label for="rol" class="form-label">Rol</label>
         <select class="form-select" id="rol" name="rol" required>
             <option value="">Seleccionar</option>
-            <?php foreach($roles as $roles): ?>
+            <?php foreach ($roles as $roles): ?>
                 <option value="<?= $roles['id']; ?>"><?= $roles['rol']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -60,7 +60,7 @@
         <label for="sede" class="form-label">Sede</label>
         <select class="form-select" id="sede" name="sede" required>
             <option value="">Seleccionar</option>
-            <?php foreach($sedes as $sede): ?>
+            <?php foreach ($sedes as $sede): ?>
                 <option value="<?= $sede['id']; ?>"><?= $sede['sede']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -70,7 +70,7 @@
         <label for="departamento" class="form-label">Departamento</label>
         <select class="form-select" id="departamento" name="departamento" required>
             <option value="">Seleccionar</option>
-            <?php foreach($departamentos as $departamento): ?>
+            <?php foreach ($departamentos as $departamento): ?>
                 <option value="<?= $departamento['id']; ?>"><?= $departamento['nombre']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -89,4 +89,3 @@
 <?= $this->section('script'); ?>
 
 <?= $this->endSection(); ?>
-

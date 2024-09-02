@@ -59,7 +59,7 @@
 
     <div class="col-md-4">
         <label for="formFile" class="form-label">Selecciona un archivo</label>
-        <input class="form-control" type="file" id="archivo" name="archivo" accept="image/jpeg, application/pdf">
+        <input class="form-control" type="file" id="image" name="image" accept="image/png, image/jpeg, application/pdf">
     </div>
 
     <div class="col-md-4">

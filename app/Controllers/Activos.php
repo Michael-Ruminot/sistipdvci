@@ -89,9 +89,17 @@ class Activos extends BaseController
             // Retorna al formulario, le pasa los elementos que se ingresaron pero tambien pasando el elemento error el cual contiene todos los errores.
         }
 
-        $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'tipo', 'sede', 'empleado']);
-
         $activosModel = new ActivosModel();
+
+        $file = $this->request->getFile('image');
+
+        if ($file->isValid() && ! $file->hasMoved()) 
+        {
+            $imageName = $file->getRandomName();
+            $file->move('uploads/', $imageName);
+        }
+
+        $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'image', 'tipo', 'sede', 'empleado']);
 
         $activosModel->insert([
             'serie' => trim($post['serie']),
@@ -99,13 +107,13 @@ class Activos extends BaseController
             'fabricante' => trim($post['fabricante']),
             'descripcion' => $post['descripcion'],
             'mantencion' => trim($post['mantencion']),
-            'ruta' => trim($post['ruta']),
+            'image' => $imageName,
             'id_tipo' => $post['tipo'],
             'id_sede' => $post['sede'],
             'id_empleado' => $post['empleado'],
         ]);
 
-        return redirect()->to('activos');
+        return redirect()->to('activos')->with('status','Activo informatico guardado exitosamente');
     }
 
     /**
@@ -165,21 +173,38 @@ class Activos extends BaseController
             // Retorna al formulario, le pasa los elementos que se ingresaron pero tambien pasando el elemento error el cual contiene todos los errores.
         }
 
-        $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'tipo', 'sede', 'empleado']);
-
         $activosModel = new ActivosModel();
+        $activo_item = $activosModel->find($id);
+        $old_img_name = $activo_item['image'];
+
+        $file = $this->request->getFile('image');
+        if ($file->isValid() && !$file->hasMoved()) 
+        {
+            if (file_exists("uploads/".$old_img_name)) {
+                unlink("uploads/".$old_img_name);
+            }
+            $imageName = $file->getRandomName();
+            $file->move('uploads/', $imageName);
+        }else
+        {
+            $imageName = $old_img_name;
+        }
+
+        $post = $this->request->getPost(['serie', 'modelo', 'fabricante', 'descripcion', 'mantencion', 'image', 'tipo', 'sede', 'empleado']);
+
         $activosModel->update($id, [
             'serie' => trim($post['serie']),
             'modelo' => trim($post['modelo']),
             'fabricante' => trim($post['fabricante']),
-            'descripcion' => trim($post['descripcion']),
+            'descripcion' => $post['descripcion'],
             'mantencion' => trim($post['mantencion']),
-            'id_tipo' => trim($post['tipo']),
-            'id_sede' => trim($post['sede']),
-            'id_empleado' => trim($post['empleado']),
+            'image' => $imageName,
+            'id_tipo' => $post['tipo'],
+            'id_sede' => $post['sede'],
+            'id_empleado' => $post['empleado'],
         ]);
 
-        return redirect()->to('activos');
+        return redirect()->to('/activos');
     }
 
     /**
@@ -197,6 +222,13 @@ class Activos extends BaseController
         }
 
         $activosModel = new ActivosModel();
+        $data = $activosModel->find($id);
+        $file = $data['image'];
+        if (file_exists("uploads/".$file)) 
+        {
+            unlink("uploads/".$file);
+        }
+
         $activosModel->delete($id);
 
         return redirect()->to('activos');

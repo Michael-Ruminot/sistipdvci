@@ -111,6 +111,8 @@ class Empleados extends BaseController
             'id_departamento' => $post['departamento'],
         ]);
 
+        echo "<script>alert('Usuario ingresado correctamente');</script>";
+
         return redirect()->to('empleados');
     }
 

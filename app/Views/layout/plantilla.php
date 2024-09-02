@@ -17,8 +17,10 @@
     <!-- Custom styles for this template DataTables-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap5.css" type="text/css" />
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- Mi estilo css-->
-    <link rel="stylesheet" href="<?= base_url('css/estilos.css'); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= base_url('css/estilo.css'); ?>" type="text/css" />
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -297,6 +299,9 @@
     <script src="<?= base_url('js/script.js'); ?>"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <!-- Sweet alert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <?php echo $this->renderSection('script'); ?>
 

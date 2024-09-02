@@ -9,20 +9,15 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Direccion</th>
-                <th scope="col">Imagen</th>
             </tr>
         </thead>
 
         <tbody>
 
             <?php foreach ($sedes as $sede) : ?>
-
-                
-
                 <tr>
                     <td><?= $sede['sede']; ?></td>
                     <td><?= $sede['direccion']; ?></td>
-                    <td></td>
                 </tr>
 
             <?php endforeach; ?>

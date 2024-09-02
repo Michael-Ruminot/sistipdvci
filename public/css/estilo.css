@@ -20,12 +20,22 @@ background-size: cover;
     margin-bottom: 100px;
 }
 
-.btn{
+.btn-login{
     background-color: rgba(0, 0, 0, 0.8);
     color: rgba(248, 208, 0, 1)
 }
 
-.btn:hover{
+.btn-login:hover{
     background-color: rgba(0, 0, 0, 0.8);
     color: rgba(255, 255, 255, 0.8)
 }
+
+#download{
+    color: #000000;
+}
+
+#download:visited, :hover, :active{
+    color: #000000;
+}
+
+

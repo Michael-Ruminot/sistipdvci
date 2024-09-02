@@ -10,7 +10,7 @@
     </div>
 <?php } ?>
 
-<form action="<?= base_url('activos/' . $activo['id']); ?>" class="row g-3" method="POST" autocomplete="off">
+<form action="<?= base_url('activos/' . $activo['id']); ?>" class="row g-3" method="POST" autocomplete="off" enctype="multipart/form-data">
 
     <input type="hidden" name="_method" value="PUT">
     <input type="hidden" name="activo_id" value="<?= $activo['id']; ?>">
@@ -58,6 +58,11 @@
                 <option value="<?= $sede['id']; ?>" <?php echo ($sede['id'] == $activo['id_sede']) ? 'selected' : ''; ?> ><?= $sede['sede']; ?></option>
             <?php endforeach; ?>
         </select>
+    </div>
+
+    <div class="col-md-4">
+        <label for="formFile" class="form-label">Selecciona un archivo</label>
+        <input class="form-control" type="file" id="image" name="image" accept="image/png, image/jpeg, application/pdf">
     </div>
 
     <div class="col-md-4">

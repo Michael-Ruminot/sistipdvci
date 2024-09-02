@@ -12,7 +12,7 @@ class ActivosModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['serie','modelo','fabricante','descripcion','mantencion', 'ruta', 'id_tipo','id_sede','id_empleado'];
+    protected $allowedFields    = ['serie','modelo','fabricante','descripcion','mantencion', 'image', 'id_tipo','id_sede','id_empleado'];
 
     // Dates
     protected $useTimestamps = true;

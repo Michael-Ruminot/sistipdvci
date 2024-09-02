@@ -50,7 +50,7 @@
                                         </div>
                                     <?php } ?>
 
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-lg" type="submit">INGRESAR</button>
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-lg btn-login" type="submit">INGRESAR</button>
                                 </form>
                             </div>
 
