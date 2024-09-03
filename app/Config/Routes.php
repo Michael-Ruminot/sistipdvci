@@ -20,14 +20,14 @@ $routes->resource('admin', ['filter' => 'AdminFilter'], ['placeholder' => '(:num
 $routes->resource('user', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
 //Rutas empleados
-$routes->resource('empleados', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+$routes->resource('empleados',['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
 //Rutas activos
 $routes->resource('activos', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 $routes->get('activos', 'Activos::subir');
 
 //Rutas sedes
-$routes->resource('sedes', ['placeholder' => '(:num)', 'except' => 'show']);
+$routes->resource('sedes', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
 //Rutas activos
 $routes->resource('reset', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);

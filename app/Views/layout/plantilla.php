@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap5.css" type="text/css" />
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Mi estilo css-->
     <link rel="stylesheet" href="<?= base_url('css/estilo.css'); ?>" type="text/css" />
 </head>
@@ -302,6 +304,7 @@
     
     <!-- Sweet alert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <?php echo $this->renderSection('script'); ?>
 

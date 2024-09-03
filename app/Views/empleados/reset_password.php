@@ -8,6 +8,12 @@
     </div>
 <?php } ?>
 
+<?php if (session()->getFlashdata('message') !== null) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+        <?= session()->getFlashdata('message'); ?>
+    </div>
+<?php } ?>
+
 <div class="table-responsive mt-3">
     <table id="myTable" class="table align-middle table-hover my-3" aria-describedby="titulo">
         <thead class="table-dark">
@@ -56,5 +62,19 @@
 <?= $this->endSection('contenido'); ?>
 
 <?= $this->section('script'); ?>
+
+<script>
+    // Tiempo para mostrar mensaje al crear usuario o activos
+    setTimeout(function() {
+        var alert = document.getElementById('message');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 200); // Tiempo para la animación de desvanecimiento
+        }
+    }, 2300); // Tiempo en milisegundos antes de que desaparezca la alerta
+</script>
 
 <?= $this->endSection(); ?>

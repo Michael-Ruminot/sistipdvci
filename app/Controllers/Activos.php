@@ -113,7 +113,9 @@ class Activos extends BaseController
             'id_empleado' => $post['empleado'],
         ]);
 
-        return redirect()->to('activos')->with('status','Activo informatico guardado exitosamente');
+        session()->setFlashdata('message', 'Activo informático agregado correctamente!');
+
+        return redirect()->to('activos');
     }
 
     /**
@@ -204,6 +206,8 @@ class Activos extends BaseController
             'id_empleado' => $post['empleado'],
         ]);
 
+        session()->setFlashdata('message', 'Activo informático actualizado correctamente!');
+
         return redirect()->to('/activos');
     }
 
@@ -230,6 +234,8 @@ class Activos extends BaseController
         }
 
         $activosModel->delete($id);
+
+        session()->setFlashdata('message', 'Activo informático eliminado correctamente!');
 
         return redirect()->to('activos');
     }

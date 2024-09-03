@@ -55,7 +55,7 @@
         <select class="form-select" id="sede" name="sede" required>
             <option value="">Seleccionar</option>
             <?php foreach ($sedes as $sede): ?>
-                <option value="<?= $sede['id']; ?>" <?php echo ($sede['id'] == $activo['id_sede']) ? 'selected' : ''; ?> ><?= $sede['sede']; ?></option>
+                <option value="<?= $sede['id']; ?>" <?php echo ($sede['id'] == $activo['id_sede']) ? 'selected' : ''; ?>><?= $sede['sede']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -71,7 +71,7 @@
         <select class="form-select" id="empleado" name="empleado" required>
             <option value="">Seleccionar</option>
             <?php foreach ($empleados as $empleado): ?>
-                <option value="<?= $empleado['id']; ?>" <?php echo ($empleado['id'] == $activo['id_empleado']) ? 'selected' : ''; ?> ><?= $empleado['nombre']; ?> <?= $empleado['apellido']; ?></option>
+                <option value="<?= $empleado['id']; ?>" <?php echo ($empleado['id'] == $activo['id_empleado']) ? 'selected' : ''; ?>><?= $empleado['nombre']; ?> <?= $empleado['apellido']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>

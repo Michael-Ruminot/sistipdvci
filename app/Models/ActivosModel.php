@@ -29,7 +29,7 @@ class ActivosModel extends Model
                                             empleados.apellido AS empleadoApellido')
         ->join('tipoactivos', 'activos.id_tipo = tipoactivos.id')
         ->join('sedes', 'activos.id_sede = sedes.id')
-        ->join('empleados', 'activos.id_empleado = empleados.id')
+        ->join('empleados', 'activos.id_empleado = empleados.id','left')
         ->findAll();
     }
 

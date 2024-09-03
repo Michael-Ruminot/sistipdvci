@@ -115,6 +115,8 @@ class Reset extends BaseController
             'password' => password_hash($post['password'], PASSWORD_DEFAULT),
         ]);
 
+        session()->setFlashdata('message', 'Contraseña de usuario actualizada.');
+
         return redirect()->to('empleados');
     }
 

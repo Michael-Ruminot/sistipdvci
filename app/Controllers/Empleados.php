@@ -111,7 +111,7 @@ class Empleados extends BaseController
             'id_departamento' => $post['departamento'],
         ]);
 
-        echo "<script>alert('Usuario ingresado correctamente');</script>";
+        session()->setFlashdata('message', 'Usuario agregado correctamente!');
 
         return redirect()->to('empleados');
     }
@@ -163,8 +163,6 @@ class Empleados extends BaseController
             'apellido' => 'required|max_length[50]',
             'username' => "required|is_unique[empleados.username,id,{$id}]", // Con esta validación nos evitamos que el programa piense que el campo existe. 
             //Ignorando este id que le estamos pasando
-            'password' => 'required|max_length[250]|min_length[5]',
-            // 'repassword' => 'matches[password]',
             'correo' => "valid_email|is_unique[empleados.correo,id,{$id}]",
             'cargo' => 'required|max_length[100]',
             'fecha_nacimiento' => 'required',
@@ -194,6 +192,8 @@ class Empleados extends BaseController
             'id_departamento' => $post['departamento'],
         ]);
 
+        session()->setFlashdata('message', 'Usuario actualizado correctamente!');
+
         return redirect()->to('empleados');
     }
 
@@ -214,6 +214,7 @@ class Empleados extends BaseController
         $empleadosModel = new EmpleadosModel();
         $empleadosModel->delete($id);
 
+        session()->setFlashdata('message', 'Usuario eliminado correctamente!');
         return redirect()->to('empleados');
     }
 
