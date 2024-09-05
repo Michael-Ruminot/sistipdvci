@@ -27,10 +27,23 @@ $routes->resource('activos', ['filter' => 'AdminFilter'], ['placeholder' => '(:n
 $routes->get('activos', 'Activos::subir');
 
 //Rutas sedes
-$routes->resource('sedes', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+$routes->resource('sedes', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
 
-//Rutas activos
+//Rutas resetar contraseña de usuario
 $routes->resource('reset', ['filter' => 'AdminFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+
+
+
+
+//ruta vista empleado rol usuario
+$routes->resource('empuser', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+
+//ruta vista activos rol usuario
+$routes->resource('actuser', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+
+$routes->resource('sedesuser', ['filter' => 'UserFilter'], ['placeholder' => '(:num)', 'except' => 'show']);
+
+
 
 
 
